@@ -24,6 +24,7 @@
 
 对应脚本：
 
+- `dsh-core/apply-all.sh` — 一键入口（复制 patcher 后依次执行两个脚本）
 - `dsh-core/apply-android-arm64-fixes.sh` — flock + node-pty
 - `dsh-core/patch-dsh-hardlinks.mjs` — 三个包 hardlink 回退
 

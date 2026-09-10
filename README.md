@@ -21,11 +21,10 @@ DSH Android/Termux 环境恢复包。适用于：
 
 1. 安装 Termux、Node 26、DSH `0.1.5-rc.1`，重建 web profile。
 2. 按 `MANIFEST.md` 的“插件来源映射”把各插件仓库 clone 到对应路径（路径见 `profile/package.json`）。
-3. 打 DSH 本体补丁：
+3. 打 DSH 本体补丁（`apply-all.sh` 会把 patcher 复制到 `~/.dsh` 再执行两个脚本）：
 
    ```sh
-   bash dsh-core/apply-android-arm64-fixes.sh
-   node dsh-core/patch-dsh-hardlinks.mjs
+   bash dsh-core/apply-all.sh
    ```
 
 4. 把 `profile/` 中文件放回 `~/.dsh/profiles/web/`；路径是本机绝对路径，换设备需要调整。
