@@ -46,15 +46,21 @@ bash restore.sh --apply   # 备份现有文件后复制，并执行 dsh-core/app
    ```sh
    node verify/verify-compat.mjs "<dsh-web-token>"
    # 或 verify/verify-merged.mjs / verify/verify-dsh-mobile.mjs
+   #   无需 token 的 android 兼容体检（随时可跑）：
+   node verify/verify-android-compat.mjs     # bash/PTY 链 + rg 链，18 项
+   node verify/verify-patch-drill.mjs        # 重打演练（临时假树，不碰真实安装版）
    ```
 
    token 从启动日志 `dsh web: http://127.0.0.1:3080/?token=...` 获取。
 
 ## 重要提醒
 
-- DSH 每次升级 / 重装后都要重跑 `dsh-core/` 中两个脚本，否则会遇到：
+- DSH 每次升级 / 重装后都要重跑 `dsh-core/` 中三个脚本，否则会遇到：
   - `ERR_FLOCK_UNSUPPORTED_PLATFORM`
   - `node-pty ... pty.node` 加载失败
   - `EACCES: permission denied, link ...`（runas_app + SELinux 硬链接拒绝）
+  - `subprocess-local: terminal inspection is unsupported on platform android`（bash / PTY 工具整体不可用）
+  - `ripgrep launch failed`（glob / grep 工具报错；上游 `@vscode/ripgrep` 无 android 平台包）
+- 补丁生效需要**重启 DSH web**：终端后端与 rg 二进制路径都是按进程惰性记忆化的，运行中的进程会继续用旧值。
 - 本仓库不包含任何凭证、DSH token、SSH key 或 signing key。
 - `profile/`、`runtime/` 中路径是当前设备的 Termux 绝对路径。

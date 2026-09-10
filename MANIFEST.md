@@ -25,12 +25,16 @@
 | `@deepseek-ai/dsh-session-persistence-jsonl` | `linkOrRename` 回退（EACCES/EPERM -> rename） | `lib/index.js.bak-android-link`、`lib/worker.cjs.bak-android-link` |
 | `@deepseek-ai/dsh-attachment-local` | `linkOrCopyExclusive` 回退（EACCES/EPERM -> copy） | `lib/index.js.bak-android-link` |
 | `@deepseek-ai/dsh-fs-local` | `linkFile` 回退（link 失败 -> copy） | `lib/index.js.bak-android-link` |
+| `@deepseek-ai/dsh-subprocess-local` | `createProcessInspector` 的 linux 分支扩为 `(linux \|\| android)`；android/arm64 与 linux 同 ABI，复用 `LinuxProcessInspector`。0.1.5-rc.* 起该函数被抽到 `lib/runner-launch-*.js`（哈希文件名，脚本按前缀发现） | `lib/runner-launch-*.js.bak-android-fix` |
+| `@deepseek-ai/dsh-terminal-bash` | bash dialect 默认 `shellPath` 在 android 下取 `$PREFIX/bin/bash`（Termux 无 `/bin/bash`）；非 android 仍为 `/bin/bash` | `lib/index.js.bak-android-shellpath` |
+| `@vscode/ripgrep` | `rgPath` 三级兑底：平台包（原逻辑，第一优先）→ `$PREFIX/bin/rg` → PATH 上的 `rg`；全失败才抛错并提示 `pkg install ripgrep`。上游 `optionalDependencies` 12 个平台条目中无 android，故平台包解析必抛 `MODULE_NOT_FOUND` | `lib/index.js.bak-android-rgpath` |
 
 对应脚本：
 
-- `dsh-core/apply-all.sh` — 一键入口（复制 patcher 后依次执行两个脚本）
+- `dsh-core/apply-all.sh` — 一键入口（复制 patcher 后依次执行三个脚本）
 - `dsh-core/apply-android-arm64-fixes.sh` — flock + node-pty
 - `dsh-core/patch-dsh-hardlinks.mjs` — 三个包 hardlink 回退
+- `dsh-core/patch-dsh-android-compat.mjs` — subprocess-local + terminal-bash + `@vscode/ripgrep` 的 android 兼容
 
 ## 插件来源映射
 
@@ -75,6 +79,8 @@
 - `verify/verify-dsh-mobile.mjs` — 较早期移动端验证（保留）
 - `verify/verify-merged.mjs` — DSH 重启/合并后全链路验证（Command Code Go + dsh-pocket A 方案）
 - `verify/verify-overflow-swipe.mjs` — 宽消息横向溢出场景：侧栏滑动仍可用；表格等真实横向控件保留原生横滑
+- `verify/verify-android-compat.mjs` — android 兼容统一入口：A 段 bash/PTY 链（android inspector 分支 + 默认 shell + node-pty 真起 bash 回读）、B 段 rg 链（rgPath 兑底 + 真 spawn 验 `--files`/`-g`/`-n`/`--json`/退出码语义）与兑底链不变量。无 token 依赖，随时可跑
+- `verify/verify-patch-drill.mjs` — 重打演练：用 `.bak-android-*` 备份在临时假树重建「上游原版」，断言 `patch-dsh-android-compat.mjs` 可从零重打（changed=3）且重复执行为幂等（changed=0），并断言真实安装版未被波及
 
 ## 安全
 
