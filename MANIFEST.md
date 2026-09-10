@@ -74,6 +74,7 @@
 - `verify/verify-compat.mjs` — 设置面板/会话 tabs/官方 stats/composer/A 方案右侧栏综合验证
 - `verify/verify-dsh-mobile.mjs` — 较早期移动端验证（保留）
 - `verify/verify-merged.mjs` — DSH 重启/合并后全链路验证（Command Code Go + dsh-pocket A 方案）
+- `verify/verify-overflow-swipe.mjs` — 宽消息横向溢出场景：侧栏滑动仍可用；表格等真实横向控件保留原生横滑
 
 ## 安全
 
