@@ -147,7 +147,18 @@ export function classifyTask(text) {
 
 /** Per-session mode derived from durable events (resume-safe). */
 export function sessionMode(session) {
-  const events = session.events
+  // Android/compat fix: the official @deepseek-ai/dsh-session Session class exposes
+  // NO `events` member (its public surface is surface/id/eventAt/snapshotEvents/
+  // ownEvents/isOwnSeq/seq/append/requestHeader/requestContext). Reading
+  // `session.events` therefore yielded undefined and `events.find(...)` threw
+  // "Cannot read properties of undefined (reading 'find')" whenever the call sites'
+  // `??` chain failed to short-circuit first. Read via the public API with a
+  // three-tier fallback so both shapes (and a missing session) are tolerated.
+  const events = Array.isArray(session?.events)
+    ? session.events
+    : typeof session?.snapshotEvents === 'function'
+      ? session.snapshotEvents()
+      : []
   const userMsg = events.find((e) => e.type === 'user/message')
   return classifyTask(extractText(userMsg?.data))
 }
