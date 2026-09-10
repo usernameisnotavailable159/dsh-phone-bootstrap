@@ -17,6 +17,17 @@ DSH Android/Termux 环境恢复包。适用于：
 - `runtime/` — Shizuku supervisor、run-* 脚本、Termux Launcher `services.json`
 - `verify/` — 无头 Chromium 验证脚本（需要先启动 DSH web 并拿到 token）
 
+## 一键恢复脚本
+
+仓库根目录的 `restore.sh` 可把 profile、presets、runtime 和 DSH 补丁脚本恢复到当前 Termux：
+
+```sh
+bash restore.sh --check   # 只打印将要复制/执行的内容
+bash restore.sh --apply   # 备份现有文件后复制，并执行 dsh-core/apply-all.sh
+```
+
+已有文件会先备份到 `~/.dsh-backup-<时间戳>/`，脚本不会删除任何现有数据。
+
 ## 恢复顺序
 
 1. 安装 Termux、Node 26、DSH `0.1.5-rc.1`，重建 web profile。

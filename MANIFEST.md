@@ -11,6 +11,10 @@
 | Node | v26.4.0 |
 | DSH | `@deepseek-ai/dsh 0.1.5-rc.1` |
 
+## 恢复入口
+
+- `restore.sh --check` / `restore.sh --apply` — 把本仓库的 profile/presets/runtime/DSH 补丁恢复回当前 Termux
+
 ## DSH 本体补丁（不在 npm / git 中）
 
 | 包 | 补丁内容 | 备份 |
