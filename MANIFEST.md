@@ -36,12 +36,13 @@
 
 | profile 包名 | 来源 / 远端 | 当前分支与提交 |
 |---|---|---|
-| `dsh-pocket` | `git@github.com:usernameisnotavailable159/dsh-pocket.git` | `main @ 9ace609` |
-| `dsh-commandcode-go` | `git@github.com:usernameisnotavailable159/dsh-commandcode-go.git` | `main @ 2e2874b` |
-| `@dsh-external/dsh-notify` | `git@github.com:usernameisnotavailable159/dsh-notify.git` | `master @ 05cc799` |
-| `dsh-undo-snapshot`（仓库名 dsh-undo-redo） | `git@github.com:usernameisnotavailable159/dsh-undo-redo.git` | `main @ 5d2e085` |
-| `dsh-memory-evolve` | `git@github.com:usernameisnotavailable159/dsh-memory-evolve.git`（origin 上游 `dsh-external/dsh-memory-evolve`） | 上游 `main @ b4994fa`；本地快照 `phone-local-20260911 @ 786cc0c` |
-| `dsh-agi-harness` plugins（browser-panel / closedloop / engram） | `git@github.com:usernameisnotavailable159/dsh-agi-harness.git`（origin 上游 `yjh051108/dsh-agi-harness`） | `main @ d268e24`；上游 `upstream-main @ 0a17d30` |
+| `dsh-pocket` | `git@github.com:usernameisnotavailable159/dsh-pocket.git` | `main @ 46f843c`（含 UPSTREAM.md） |
+| `dsh-commandcode-go` | `git@github.com:usernameisnotavailable159/dsh-commandcode-go.git` | `main @ 1ee98b0`（含 provider passthrough 崩溃修复） |
+| `@dsh-external/dsh-notify` | `git@github.com:usernameisnotavailable159/dsh-notify.git` | `master @ 1bc177a`（含 UPSTREAM.md） |
+| `dsh-undo-snapshot`（仓库名 dsh-undo-redo） | `git@github.com:usernameisnotavailable159/dsh-undo-redo.git` | `main @ 1eaae2a`（含 UPSTREAM.md） |
+| `dsh-memory-evolve` | `git@github.com:usernameisnotavailable159/dsh-memory-evolve.git`（origin 上游 `dsh-external/dsh-memory-evolve`） | 上游 `main @ b4994fa`；本地 `phone-local-20260911 @ 7f1f879`（minify 构建）；备份 tag `phone-local-20260911-pre-rebase @ 786cc0c` |
+| `dsh-agi-harness` plugins（browser-panel / closedloop / engram） | `git@github.com:usernameisnotavailable159/dsh-agi-harness.git`（origin 上游 `yjh051108/dsh-agi-harness`） | `main`/`compat-fixes @ 08ef33a`；`upstream-main @ 0a17d30` |
+| `dsh-phone-bootstrap` | `git@github.com:usernameisnotavailable159/dsh-phone-bootstrap.git` | `main @ 5256491`（restore.sh / apply-all.sh / profile 快照 / presets / runtime） |
 | `dsh-better-sidebar` | npm registry | `0.18.0-alpha.0` |
 | `@linxin666/dsh-client-ui-task-board` | npm registry | `0.3.12` |
 | `@liustack/modsearch` | npm registry | `5.10.0` |
