@@ -1,0 +1,55 @@
+# 用户补丁层（HMR 热生效）：2026-08-14 插件安装
+
+# 2026-08-14 排查手机端黑屏：临时停用全部自定义/第三方插件。
+# 恢复时删除对应 disabled 块即可。
+# 2026-08-15 分批恢复：A=ui-web-ui-settings/ui-web-ui-compat；B=ui-task-board/pet；
+# C=aionui-panel/prompt-studio；D=ssh/ui-skin-center(用户拍板)。
+# 剩余保留项：client-hmr(dev 专用)。
+# 2026-08-21 修正：禁用 id 需用全家桶 namespace（web-ui-git-graph / web-ui-remote-web-ui），
+# 旧 id（ui-git-graph / remote-web-ui）不匹配任何条目 = 从未生效，git 图谱与远程 UI 一直在跑。
+- id: client-hmr
+  disabled: true
+# 2026-08-15 启用 /compact: web 配置层默认把 compaction-basic/command-compact 禁用了,
+# 网页版因此无法运行 /compact 命令; 用户补丁层重新打开。
+- id: compaction-basic
+  disabled: false
+- id: command-compact
+  disabled: false
+
+# 2026-08-21 已卸载插件（dsh-message-edit / dsh-mobile-css）：依赖已从 package.json 移除，
+# 两个 disabled 块一并删除（原 insert 引用已卸载包会导致启动失败，已移除）。
+# 2026-08-20 rc.8：prompt-studio 已由兼容 shim
+# (~/projects/dsh-client-web-react-compat 提供 dsh-client-web-react/bindSnapshotSelector) 解除禁用，待浏览器实测。
+# 2026-08-20 按用户要求移除宠物挂件（dsh-pet：web-ui 全家桶传递依赖，无法直接摘除，
+# 用 id=pet 禁用等效于删除；后续“情绪化小插件”阶段如需再启用可去掉此块）。
+
+# 2026-08-21 性能整理（用户拍板）：dsh-session-telemetry-otel 内置默认 OTLP 端点
+# （harness-telemetry.deepseeksvc.com/v1/logs），无自定义配置时也会向官方上报日志 ——
+# 禁用同时省网络开销与隐私外泄。日后如需遥测，删除此块即可恢复。
+- id: session-telemetry-otel
+  disabled: true
+
+# 2026-08-21 已卸载 @dsh-external/dsh-mobile：移动端分页器由 dsh-ui-responsive
+# 吸收（依赖与 bundle 均从 package.json 移除），此处无残留条目。
+
+# 2026-08-21 dsh-undo-redo（undo-snapshot）插件：已热装配并经用户在主实例验证通过（无致命 bug）。
+# 持久化启用（重启后随 bundles 加载）。自动快照 config.enabled 默认关，需要时改为：
+#   config:
+#     enabled: true
+- id: undo-snapshot
+  disabled: false
+
+# 2026-08-21 模式精简（用户拍板）：只保留 anchored-standard / router-flash / router-standard。
+# liangshen 模式已删除（preset 归档于 ~/.dsh/.agent-presets-archive/），
+# 禁用其维护插件防止 preset 被重建。
+
+# 2026-09-02 用户恢复核心功能:task-board(任务管理)启用。
+# 注:0.3.11 已适配 alpha.3(typertGateway),不再与其他冲突。
+
+# 2026-08-27 安装 dsh-pocket（手机扫码访问）并禁用冲突的移动端布局插件。
+# dsh-pocket 内置移动端适配（移植 dsh-web-mobile）：侧栏抽屉/会话全宽/安全区/压缩，
+# 与 dsh-ui-responsive 的移动端布局功能重叠，二者同开会打架（历史上有手机端黑屏问题）。
+# 若要恢复 dsh-ui-responsive，删除下方 disabled 块并重启 dsh web 即可。
+- id: dsh-market
+  disabled: false
+# 禁用全家桶的 web-ui-better-sidebar shell 行(由独立 bundle dsh-better-sidebar 提供,避免重复)

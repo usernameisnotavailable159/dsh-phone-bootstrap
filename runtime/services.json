@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "services": [
+    {
+      "id": "harness",
+      "name": "DeepSeek Harness",
+      "kind": "command",
+      "command": "cd ~/projects/deepseek-harness && bash start-web.sh",
+      "cwd": "/data/data/com.termux/files/home",
+      "env": {},
+      "enabled": true,
+      "port": 3080,
+      "autoStart": false,
+      "restartPolicy": "on-exit",
+      "supervisor": "external",
+      "idleTimeoutMs": 0,
+      "health": {
+        "type": "http",
+        "url": "http://127.0.0.1:3080/",
+        "timeoutMs": 1500,
+        "intervalMs": 3000,
+        "startupTimeoutMs": 60000
+      },
+      "stop": {
+        "signal": "SIGTERM",
+        "graceMs": 5000,
+        "killGroup": true
+      },
+      "logs": {
+        "stdout": "/data/data/com.termux/files/home/logs/launcher/.termux-launcher-harness.log",
+        "stderr": "/data/data/com.termux/files/home/logs/launcher/.termux-launcher-harness.log",
+        "maxBytes": 1048576,
+        "rotate": 1
+      },
+      "ownerPattern": "@deepseek-ai/dsh/lib/bin\\.js web",
+      "sessionHost": true
+    },
+    {
+      "id": "chat-engine",
+      "name": "Chat Engine",
+      "kind": "command",
+      "command": "cd ~/projects/chat-engine && bash start.sh",
+      "cwd": "/data/data/com.termux/files/home",
+      "env": {},
+      "enabled": true,
+      "port": 9876,
+      "autoStart": false,
+      "restartPolicy": "on-exit",
+      "supervisor": "agent",
+      "idleTimeoutMs": 0,
+      "health": {
+        "type": "http",
+        "url": "http://127.0.0.1:9876/",
+        "timeoutMs": 1500,
+        "intervalMs": 3000,
+        "startupTimeoutMs": 60000
+      },
+      "stop": {
+        "signal": "SIGTERM",
+        "graceMs": 5000,
+        "killGroup": true
+      },
+      "logs": {
+        "stdout": "/data/data/com.termux/files/home/logs/launcher/.termux-launcher-chat-engine.log",
+        "stderr": "/data/data/com.termux/files/home/logs/launcher/.termux-launcher-chat-engine.log",
+        "maxBytes": 1048576,
+        "rotate": 1
+      },
+      "ownerPattern": "^node server\\.js",
+      "sessionHost": false
+    },
+    {
+      "id": "test-echo",
+      "name": "Test Echo",
+      "kind": "command",
+      "command": "node -e \"require('http').createServer((q,r)=>{r.end('ok')}).listen(18765,'127.0.0.1')\"",
+      "cwd": "/data/data/com.termux/files/home",
+      "env": {},
+      "enabled": false,
+      "port": 18765,
+      "autoStart": false,
+      "restartPolicy": "on-exit",
+      "supervisor": "agent",
+      "idleTimeoutMs": 0,
+      "health": {
+        "type": "http",
+        "url": "http://127.0.0.1:18765/",
+        "timeoutMs": 1000,
+        "intervalMs": 1000,
+        "startupTimeoutMs": 10000
+      },
+      "stop": {
+        "signal": "SIGTERM",
+        "graceMs": 3000,
+        "killGroup": true
+      },
+      "logs": {
+        "stdout": "/data/data/com.termux/files/home/logs/launcher/.termux-launcher-test-echo.log",
+        "stderr": "/data/data/com.termux/files/home/logs/launcher/.termux-launcher-test-echo.log",
+        "maxBytes": 1048576,
+        "rotate": 1
+      },
+      "ownerPattern": null,
+      "sessionHost": false
+    }
+  ]
+}

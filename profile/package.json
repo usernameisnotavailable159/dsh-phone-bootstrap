@@ -1,0 +1,39 @@
+{
+  "name": "dsh-profile-web",
+  "private": true,
+  "dependencies": {
+    "@deepseek-ai/dsh-settings": "0.1.1-rc.2",
+    "@dsh-external/dsh-browser-panel": "link:/data/data/com.termux/files/home/projects/dsh-agi-harness/plugins/dsh-browser-panel",
+    "@dsh-external/dsh-closedloop-mode": "link:/data/data/com.termux/files/home/projects/dsh-agi-harness/plugins/dsh-closedloop-mode",
+    "@dsh-external/dsh-engram-relay": "link:/data/data/com.termux/files/home/projects/dsh-agi-harness/plugins/dsh-engram-relay",
+    "@dsh-external/dsh-notify": "link:/data/data/com.termux/files/home/projects/dsh-notify",
+    "@linxin666/dsh-client-ui-task-board": "0.3.12",
+    "@liustack/modsearch": "5.10.0",
+    "dsh-better-sidebar": "0.18.0-alpha.0",
+    "dsh-commandcode-go": "file:/data/data/com.termux/files/home/projects/dsh-commandcode-go-bridge",
+    "dsh-memory-evolve": "link:/data/data/com.termux/files/home/projects/dsh-memory-evolve",
+    "dsh-pocket": "link:/data/data/com.termux/files/home/projects/dsh-pocket",
+    "dsh-undo-snapshot": "link:/data/data/com.termux/files/home/projects/dsh-undo-snapshot",
+    "dshmarket": "1.40.0"
+  },
+  "dsh": {
+    "profile": {
+      "bundles": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-web-app",
+        "dsh-undo-snapshot",
+        "@liustack/modsearch",
+        "dsh-memory-evolve",
+        "dsh-commandcode-go",
+        "dsh-pocket",
+        "@dsh-external/dsh-notify",
+        "dshmarket",
+        "dsh-better-sidebar",
+        "@linxin666/dsh-client-ui-task-board",
+        "@dsh-external/dsh-closedloop-mode",
+        "@dsh-external/dsh-browser-panel",
+        "@dsh-external/dsh-engram-relay"
+      ]
+    }
+  }
+}

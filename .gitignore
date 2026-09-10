@@ -1,0 +1,7 @@
+# Never commit runtime secrets
+.env
+.credentials*
+signing.env
+*.token
+*.keystore
+*.jks
